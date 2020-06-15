@@ -7,7 +7,7 @@ from os.path import join
 
 class ImageData(models.Model):
     photo = models.ImageField(upload_to='photos')
-    base64_format = models.FileField(upload_to='Base')
+    base64_format = models.TextField()
     hash_format = models.CharField(max_length=32)
 
     def __str__(self):
