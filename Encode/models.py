@@ -6,8 +6,8 @@ from os.path import join
 # fs = FileSystemStorage(location = join(settings.MEDIA_URL, 'photos'))
 
 class ImageData(models.Model):
-    photo = models.ImageField()
-    base64_format = models.TextField()
+    photo = models.ImageField(upload_to='photos')
+    base64_format = models.FileField(upload_to='Base')
     hash_format = models.CharField(max_length=128)
 
     def __str__(self):
