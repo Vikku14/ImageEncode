@@ -7,6 +7,8 @@ from hashlib import md5
 from os import path
 from django.core.files.base import ContentFile
 from .forms import ImageForm
+
+
 # Create your views here.
 def picture(request):
     if request.method == "POST":
@@ -15,18 +17,20 @@ def picture(request):
             try:
                 fs = FileSystemStorage(location=path.join(settings.MEDIA_ROOT, 'Base64'))
                 pic = request.FILES['photo']
-                pic_name = 'base64'+pic.name.split('.')[0]
+                pic_name = 'base64_'+pic.name.split('.')[0]
 
                 form_data =  form.save(commit=False)
 
                 pic_read = pic.read()
-                encoded_string = ContentFile(b64encode(pic_read))
+                encoded_file = ContentFile(b64encode(pic_read))
                 hash_result = md5(pic_read)
 
-                form_data.base64_format= fs.save(pic_name, encoded_string)
+                form_data.base64_format= fs.save(pic_name, encoded_file)
                 form_data.hash_format = hash_result.hexdigest()
 
                 form.save()
+                messages.success(request, 'Image uploaded Successfully.')
+
             except Exception as e:
                 messages.error(request, 'Unexpected error! try again.'+ str(e))
 
@@ -35,5 +39,5 @@ def picture(request):
             messages.error(request, "Error: Check the fields again before submitting again.")
             return render(request, 'Encode/picture.html', {'form': form})
     else:
-        form = ImageForm()
-        return render(request, 'Encode/picture.html', {'form': form})
+
+        return render(request, 'Encode/picture.html', {'form': ImageForm()})
