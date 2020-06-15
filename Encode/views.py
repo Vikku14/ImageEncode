@@ -2,7 +2,8 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-import base64
+from base64 import b64encode
+from hashlib import md5
 from os import path
 from django.core.files.base import ContentFile
 from .forms import ImageForm
@@ -18,14 +19,17 @@ def picture(request):
 
                 form_data =  form.save(commit=False)
 
-                encoded_string = ContentFile(base64.b64encode(pic.read()))
+                pic_read = pic.read()
+                encoded_string = ContentFile(b64encode(pic_read))
+                hash_result = md5(pic_read)
 
                 form_data.base64_format= fs.save(pic_name, encoded_string)
+                form_data.hash_format = hash_result.hexdigest()
 
                 form.save()
-            except:
-                messages.error(request, 'Unexpected error! try again.')
-                
+            except Exception as e:
+                messages.error(request, 'Unexpected error! try again.'+ str(e))
+
             return redirect('Encode:picture')
         else:
             messages.error(request, "Error: Check the fields again before submitting again.")
