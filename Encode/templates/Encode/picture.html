@@ -1,6 +1,14 @@
 {% extends 'Encode/base.html' %}
 {% block content %}
-<form class="form" action="" method="post" enctype="multipart/form-data">
-{{  form.as_table }}
+{% include 'messages.html' %}
+<form class="form" action="{% url 'Encode:picture' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+{% for field in form %}
+{{ field }}
+{% for error in field.errors %}
+{{ error }}
+{% endfor %}
+{% endfor %}
+<button type="submit" name="button">Upload Image</button>
 </form>
 {% endblock %}
