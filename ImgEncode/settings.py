@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '!hgbo))1n4^_s=dq+xeiz-rh0(@+=slpxk%$@!&q_sfbj#qygh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://image-encode.herokuapp.com']
 
 
 # Application definition
