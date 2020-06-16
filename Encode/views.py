@@ -39,38 +39,6 @@ def picture(request):
         return render(request, 'Encode/picture.html', {'form': ImageForm()})
 
 
-@api_view(['GET'])
-def apiOverview(request):
-    api_urls={
-    'List': 'image-list',
-    'Detail': 'image-detail',
-    'Create': 'image-create',
-    }
-    return Response(api_urls)
-
-@api_view(['GET'])
-def imageList(request):
-    images = ImageData.objects.all()
-    serializer = ImageSerializer(images, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def imageDetail(request, pk):
-    images = ImageData.objects.get(id=pk)
-    serializer = ImageSerializer(images, many=False)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def imageCreate(request):
-
-    serializer = ImagePostSerializer(data = request.data)
-
-    print("Data ",request.data['photo'])
-    if serializer.is_valid():
-        serializer.save()
-    else:
-        print("not validate")
-    return Response(serializer.data)
 
 class ImageApi(APIView):
     parser_class = (FileUploadParser,)
@@ -97,46 +65,6 @@ class ImageApi(APIView):
                 return JsonResponse(serializer.data,status=status.HTTP_201_CREATED)
 
             except Exception as e:
-                print(e)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #
-    # @csrf_exempt
-    # def post(self, request):
-    #     serializer = ImageSerializer(data = request.data)
-    #     print(request.data)
-    #     if serializer.is_valid():
-    #         try:
-    #             print('valid')
-    #             pic = request.data['photo']
-    #             serializer.save(photo = pic)
-    #             print('fsdfsd  ', type(request.data['photo']))
-    #             pic_read = pic.read()
-    #             print(pic_read)
-    #             hash_result = md5(pic_read)
-    #             print('read success')
-    #             bb = b64encode(pic_read).decode('ascii')
-    #             hh = hash_result.hexdigest()
-    #             print(request.data['base64_format'], request.data['hash_format'])            # update form fields
-    #             print('updated true')
-    #             serializer.save(base64_format = bb, hash_format=hh)
-    #             print('saved')
-    #             return Response(serializer.data,status=status.HTTP_201_CREATED)
-    #
-    #         except Exception as e:
-    #             print('in Exception')
-    #             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #     else:
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    #
-    # @csrf_exempt
-    # def post(self, request):
-    #     ser= ImagePostSerializer(data=request.data)
-    #
-    #     if ser.is_valid():
-    #         ser.save()
-    #         return Response(ser.data,status=status.HTTP_201_CREATED)
-    #     else:
-    #       return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
