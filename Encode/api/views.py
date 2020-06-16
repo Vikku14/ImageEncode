@@ -19,7 +19,7 @@ class ImageApi(APIView):
     def get(self, request):
         images = ImageData.objects.all()
         ser = ImageSerializer(images, many= True)
-        return JsonResponse(ser.data, safe=False)
+        return Response(ser.data)
 
     @csrf_exempt
     def post(self, request):
