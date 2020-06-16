@@ -1,21 +1,28 @@
-{% extends 'Encode/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/Encode/picture.css' %}">
 {% endblock %}
 {% block content %}
-{% include 'Encode/messages.html' %}
-<div class="container mt-5"
+{% include 'messages.html' %}
+
+<div class="container mt-5">
   <div class="row">
-    <div class="font-weight-bold display-3 col-12 text-center lead text-primary">
-      inVOID
+    <div class="col-md-9 col-12">
+      <div class="font-weight-bold display-3 col-12 text-center lead text-primary">
+        inVOID
+      </div>
+      <div class="display-4 col-12 text-center">
+        Image --> Base64 --> MD5
+      </div>
     </div>
-    <div class="display-4 col-12 text-center">
-      Flask/Django Internship Task
+    <div class="col-md-3 col-12 align-self-center p-3 card bg-dark rounded">
+      <div class="card-title text-center h4 text-light">
+        <code>api URL</code>
+      </div>
+      <code class="card-body p-1 mx-0 h6 rounded lead bg-light text-secondary text-center">website_url/api/image-api</code>
     </div>
-  </div>
-  <div class="mx-auto w-50">
-    <div class="card card-body m-5 p-5 border border-secondary rounded">
+  <div class="col-md-9 col-12">
+    <div class="card card-body my-5 p-5 border border-secondary rounded mx-auto col-md-10 col-12">
       <form class="form row" action="{% url 'Encode:picture' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -35,8 +42,28 @@
         </div>
       </form>
     </div>
+    </div>
   </div>
+
+    <div class="row">
+      {% if hash %}
+      <div class="col-6">
+      <label for="hf" class="form-label lead">MD5_Output</label>
+      <input type="text" id="hf" class="form-control" value="{{ hash }}">
+    </div>
+      {% endif %}
+
+    {% if base64 %}
+    <div class="col-6">
+      <label for="ta" class="form-label lead">Bas64_Output: </label>
+      <textarea class="form-control" id="ta" rows="5" cols="50">{{ base64 }}</textarea>
+      </div>
+    {% endif %}
+
+  </div>
+
 </div>
+
 
 {% block js %}
 

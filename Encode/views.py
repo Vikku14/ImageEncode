@@ -18,10 +18,16 @@ def picture(request):
                 form_data =  form.save(commit=False)
                 pic_read = pic.read()                        #convert into bite string
                 hash_result = md5(pic_read)                 # md5
-                form_data.base64_format= b64encode(pic_read).decode('ascii')
-                form_data.hash_format = hash_result.hexdigest()            # update form fields
+                bf = form_data.base64_format= b64encode(pic_read).decode('ascii')
+                hf = form_data.hash_format = hash_result.hexdigest()            # update form fields
                 form.save()
                 messages.success(request, 'Image uploaded Successfully.')
+                context={
+                    'base64': bf,
+                    'hash':hf,
+                    'form': ImageForm()
+                }
+                return render(request, 'Encode/picture.html',context)
             except Exception as e:
                 messages.error(request, 'Unexpected error! try again.'+ str(e))
             return redirect('Encode:picture')
