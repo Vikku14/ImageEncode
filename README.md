@@ -13,7 +13,7 @@
   
   ```pipenv install```
   
-**Change database in settings.py file**
+**Load your own credentials in settings.py file**
 
 *Finally run:*
 
