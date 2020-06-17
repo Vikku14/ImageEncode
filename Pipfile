@@ -12,6 +12,8 @@ djangorestframework = "*"
 psycopg2 = "*"
 gunicorn = "*"
 django-heroku = "*"
+python-decouple = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.8"
