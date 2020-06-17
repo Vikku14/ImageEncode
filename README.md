@@ -2,13 +2,16 @@
 ### It will take image as input convert it into base64 and then md5.
 ## Run Locally:
 *clone this Repo*
- > git clone [Repo](https://github.com/Vikku14/ImageEncode.git)
+
+ ```git clone```
  
  *Start pip environment*
-  > pipenv shell
+ 
+  ``` pipenv shell```
   
   *Install all requirements by running*
-  > pipenv install
+  
+  ```pipenv install```
   
 **Change database in settings.py file**
 
