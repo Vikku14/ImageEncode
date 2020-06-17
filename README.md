@@ -2,7 +2,7 @@
 ### It will take image as input convert it into base64 and then md5.
 ## Run Locally:
 *clone this Repo*
- > git clone https://github.com/Vikku14/ImageEncode.git
+ > git clone [Repo](https://github.com/Vikku14/ImageEncode.git)
  
  *Start pip environment*
   > pipenv shell
