@@ -5,7 +5,6 @@ from base64 import b64encode
 from hashlib import md5
 from os import path
 from .forms import ImageForm
-
 from .models import ImageData
 
 # Create your views here.

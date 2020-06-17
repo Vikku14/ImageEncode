@@ -1,5 +1,5 @@
 from rest_framework.parsers import FileUploadParser
-from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from rest_framework.renderers import JSONRenderer
 from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
@@ -19,7 +19,7 @@ class ImageApi(APIView):
     def get(self, request):
         images = ImageData.objects.all()
         ser = ImageSerializer(images, many= True)
-        return Response(ser.data)
+        return JsonResponse(ser.data, safe=False)
 
     @csrf_exempt
     def post(self, request):
